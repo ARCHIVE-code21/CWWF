@@ -59,12 +59,6 @@ class VideoScreen extends Component {
                         style={styles.videoStyle}
                         resizeMode="contain"
                     />
-
-                    <Text>
-                        {
-                            'url : (props.url)'
-                        }
-                    </Text>
                 </View>
             </>
         );

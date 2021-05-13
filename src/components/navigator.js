@@ -4,8 +4,10 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import HomeScreen from '../screens/home'
-import VideoScreen from '../screens/video'
+//import VideoScreen from '../screens/videoList'
 import InfoScreen from '../screens/info';
+
+import videoList from './videoList'
 
 const TabNavigator = createBottomTabNavigator(
     {
@@ -13,7 +15,7 @@ const TabNavigator = createBottomTabNavigator(
             screen: HomeScreen,
         },
         Video: {
-            screen: VideoScreen,
+            screen: videoList,
         },
         Info: {
             screen: InfoScreen,
