@@ -18,4 +18,6 @@ target 'CWWF' do
   #     flipper_post_install(installer)
   #   end
   # end
+  pod 'RNFirebase', :path => '../node_modules/react-native-firebase'
+
 end

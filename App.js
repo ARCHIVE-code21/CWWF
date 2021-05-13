@@ -1,13 +1,36 @@
-import React, { useEffect } from 'react';
-import { Alert } from 'react-native';
-import messaging from '@react-native-firebase/messaging';
+import { createStackNavigator } from 'react-navigation-stack';
+import { createAppContainer } from 'react-navigation';
 
-function App() {
-  useEffect(() => {
-    const unsubscribe = messaging().onMessage(async remoteMessage => {
-      Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
-    });
+import MainScreen from './src/screens/main';
+import NavScreen from './src/components/navigator'
 
-    return unsubscribe;
-  }, []);
-}
+import React, { useState, useEffect, Component } from 'react';
+
+import { Alert, View, Text } from 'react-native';
+import { render } from 'react-dom';
+
+const Route = createStackNavigator(
+    {
+        Main: { 
+            screen: MainScreen,
+            navigationOptions: {
+                title: 'Main',
+            }   // 메인 스택
+        },
+        Home: { 
+            screen: NavScreen,
+            navigationOptions: {
+                title: 'Home',
+            } } // 홈 스택
+    },
+    { initialRouteName: "Main", headerMode: "none"}
+    // 시작페이지 지정 => Main
+
+);
+
+const App = createAppContainer(Route);
+
+export default App;
+
+// createStackNavigator 페이지를 Stack에 쌓아두어 이동하는 방법
+// 이전의 페이지를 그대로 유지할 수 있는 장점이 있지만 페이지 이동할떄 reloading 안됨
