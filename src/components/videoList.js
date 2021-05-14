@@ -2,9 +2,8 @@ import React, {Component} from 'react';
 import { View, Text, StyleSheet, 
         FlatList, TouchableOpacity, TouchableWithoutFeedback} from 'react-native';
 
-import { Video, AVPlaybackStatus } from 'expo-av';
 
-const url = 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4'
+import { Video, AVPlaybackStatus } from 'expo-av';
 
 export default class videoList extends Component{
 
@@ -13,13 +12,44 @@ export default class videoList extends Component{
 
         this.state={
             datas: [
-                {name:"cctv1", message:"address"},
-                {name:"cctv2", message:"address"},
-                {name:"cctv3", message:"address"},
-                {name:"cctv4", message:"address"},
+                {
+                    cctv_number : "e3",
+                    cctv_location : "감삼네거리",
+                    cctv_state : "warning",
+                    cctv_url : "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"
+                },
+
+                {
+                    cctv_number : "e4",
+                    cctv_location : "감삼네거리",
+                    cctv_state : "warning",
+                    cctv_url : "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"
+                },
+
+                {
+                    cctv_number : "e4",
+                    cctv_location : "감삼네거리",
+                    cctv_state : "warning",
+                    cctv_url : "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"
+                },
+
+                {
+                    cctv_number : "e4",
+                    cctv_location : "감삼네거리",
+                    cctv_state : "warning",
+                    cctv_url : "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"
+                },
+
             ],
         };
     }
+
+    // componentDidMount() {
+        
+    //     fetch('null')
+    //         .then(data => data.json())
+    //         .then(data => this.setState({datas: data}, () => console.log(data)))
+    // }
 
     render(){
 
@@ -30,7 +60,7 @@ export default class videoList extends Component{
                 <FlatList
                     data={this.state.datas}
                     renderItem={this.renderItem}
-                    keyExtractor={ item=> item.name }>
+                    keyExtractor={ item=> item.cctv_number }>
                 
                 </FlatList>
 
@@ -42,18 +72,19 @@ export default class videoList extends Component{
         return(
             <TouchableOpacity 
                 style={style.contentView} 
-                onPress={()=>{alert(item.name);}}
+                onPress={()=>{alert(item.cctv_number);}}
                 >
 
                 <View style={{flexDirection:'column'}}>
-                    <Text style={style.cctvName}>{item.name}</Text>
-                    <Text style={style.textAddress}>{item.message}</Text>
+                    <Text style={style.cctvName}>{item.cctv_number}</Text>
+                    <Text style={style.textAddress}>{item.cctv_location}</Text>
+                    <Text style={style.textAddress}>{item.cctv_state}</Text>
                 </View>
 
                 <Video
                     useNativeControls
                     isLooping
-                    source={{uri: url,}}
+                    source={{uri: item.cctv_url,}}
                     style={style.videoStyle}
                     resizeMode="contain"
                 />

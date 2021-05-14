@@ -22,7 +22,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import expo.modules.updates.UpdatesController;
-
+fetch('null') // =================> URL
 public class MainApplication extends Application implements ReactApplication {
   private final ReactModuleRegistryProvider mModuleRegistryProvider = new ReactModuleRegistryProvider(
     new BasePackageList().getPackageList()

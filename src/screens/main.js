@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Platform } from 'react-native';
 
-import { View, Text, Button } from "react-native";
+import { View, Text, Button, TextInput } from "react-native";
 import home from './home';
 
     const styles = StyleSheet.create({
@@ -20,6 +20,9 @@ import home from './home';
     },
     button: {
         
+    },
+    textInput:{
+        fontSize: 30,
     }
 });
 
@@ -33,9 +36,15 @@ export default class MainScreen extends Component {
             <Text style={styles.font_L}>
                 {"Crosswalk Watcher" }
             </Text>
+
             <Text>{"\n"}</Text>
+
+                <TextInput
+                    style={styles.textInput}
+                    placeholder="ID input."
+                    />
+
             <Button 
-                
                 title="Getting started"
                 onPress={() => this.goScreenHome()} />
         </View>
