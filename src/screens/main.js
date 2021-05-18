@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { StyleSheet, Platform } from 'react-native';
 
 import { View, Text, Button, TextInput } from "react-native";
-import home from './home';
 
     const styles = StyleSheet.create({
     container: {

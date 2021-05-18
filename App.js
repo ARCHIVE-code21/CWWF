@@ -3,6 +3,7 @@ import { createAppContainer } from 'react-navigation';
 
 import MainScreen from './src/screens/main';
 import NavScreen from './src/components/navigator'
+import VideoScreen from './src/screens/video'
 
 const Route = createStackNavigator(
     {
@@ -12,11 +13,20 @@ const Route = createStackNavigator(
                 title: 'Main',
             }   // 메인 스택
         },
+
         Home: { 
             screen: NavScreen,
             navigationOptions: {
                 title: 'Home',
-            } } // 홈 스택
+            } // 홈 스택
+        }, 
+        
+        VideoPage: {
+            screen: VideoScreen,
+            navigationOptions: {
+                title: 'VideoPage',
+            } // 비디오 스택
+        }
     },
     { initialRouteName: "Main", headerMode: "none"}
     // 시작페이지 지정 => Main

@@ -45,11 +45,10 @@ import { Video, AVPlaybackStatus } from 'expo-av';
 
 const url = 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4'
 
-class VideoScreen extends Component {
+export default class VideoScreen extends Component {
 
     render() {
         return (
-            <>
                 <View style={styles.videoView}>
                     <Text style={styles.font_L}>VideoPage{'\n'}</Text>
                     <Video
@@ -60,9 +59,8 @@ class VideoScreen extends Component {
                         resizeMode="contain"
                     />
                 </View>
-            </>
         );
     }
 }
 
-export default VideoScreen;
+

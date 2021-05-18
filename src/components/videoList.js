@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import { View, Text, StyleSheet, 
         FlatList, TouchableOpacity, TouchableWithoutFeedback} from 'react-native';
 
-
 import { Video, AVPlaybackStatus } from 'expo-av';
 
 export default class videoList extends Component{
@@ -13,33 +12,46 @@ export default class videoList extends Component{
         this.state={
             datas: [
                 {
-                    cctv_number : "e3",
-                    cctv_location : "감삼네거리",
-                    cctv_state : "warning",
+                    cctv_number : "0",
+                    cctv_location : "계산오거리",
+                    cctv_state : "Warning",
                     cctv_url : "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"
                 },
 
                 {
-                    cctv_number : "e4",
+                    cctv_number : "1",
                     cctv_location : "감삼네거리",
-                    cctv_state : "warning",
+                    cctv_state : "Apply",
                     cctv_url : "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"
                 },
 
                 {
-                    cctv_number : "e4",
-                    cctv_location : "감삼네거리",
-                    cctv_state : "warning",
+                    cctv_number : "2",
+                    cctv_location : "중앙대로",
+                    cctv_state : "Apply",
                     cctv_url : "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"
                 },
 
                 {
-                    cctv_number : "e4",
-                    cctv_location : "감삼네거리",
-                    cctv_state : "warning",
+                    cctv_number : "3",
+                    cctv_location : "시청네거리",
+                    cctv_state : "Apply",
                     cctv_url : "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"
                 },
 
+                {
+                    cctv_number : "4",
+                    cctv_location : "MBC네거리",
+                    cctv_state : "Apply",
+                    cctv_url : "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"
+                },
+
+                {
+                    cctv_number : "5",
+                    cctv_location : "대구공고네거리",
+                    cctv_state : "Apply",
+                    cctv_url : "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"
+                },
             ],
         };
     }
@@ -72,7 +84,8 @@ export default class videoList extends Component{
         return(
             <TouchableOpacity 
                 style={style.contentView} 
-                onPress={()=>{alert(item.cctv_number);}}
+                // onPress={()=>{alert(item.cctv_number);}}
+                onPress={()=> this.goScreenVideo()}
                 >
 
                 <View style={{flexDirection:'column'}}>
@@ -81,17 +94,21 @@ export default class videoList extends Component{
                     <Text style={style.textAddress}>{item.cctv_state}</Text>
                 </View>
 
-                <Video
+                {/* <Video
                     useNativeControls
                     isLooping
                     source={{uri: item.cctv_url,}}
                     style={style.videoStyle}
                     resizeMode="contain"
-                />
+                /> */}
+
             </TouchableOpacity>
         );
     }
 
+    goScreenVideo(){
+        this.props.navigation.navigate('VideoPage');
+    }
 }
 
 const style= StyleSheet.create({
@@ -107,7 +124,8 @@ const style= StyleSheet.create({
     },
 
     contentView:{
-        alignItems:'center',
+        flexDirection:'row',
+        alignItems: 'center',
         borderWidth:1,
         borderRadius:0,
         padding:8,
@@ -123,9 +141,9 @@ const style= StyleSheet.create({
     },
 
     videoStyle: {
-        alignSelf:'center',
         resizeMode:'cover',
-        width: 300,
-        height: 200,
+        flex:2,
+        width: 100,
+        height: 50,
     },
 });
