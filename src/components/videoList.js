@@ -1,79 +1,65 @@
 import React, {Component} from 'react';
 import { View, Text, StyleSheet, 
-        FlatList, TouchableOpacity, TouchableWithoutFeedback} from 'react-native';
+    FlatList, TouchableOpacity} from 'react-native';
 
-import { Video, AVPlaybackStatus } from 'expo-av';
+    // export default function App() {
+    //     const [data, setData] = useState([]);
+    
+    //     const getData = () => {
+    //         fetch('http://localhost:3000/datalist')
+    //             .then((data) => data.json())
+    //             .then((data) => setData({
+    //                 datas: data
+    //             }))
+    //     }
+    // }
 
 export default class videoList extends Component{
 
-    constructor(){
-        super();
-
-        this.state={
-            datas: [
-                {
-                    cctv_number : "0",
-                    cctv_location : "계산오거리",
-                    cctv_state : "Warning",
-                    cctv_url : "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"
-                },
-
-                {
-                    cctv_number : "1",
-                    cctv_location : "감삼네거리",
-                    cctv_state : "Apply",
-                    cctv_url : "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"
-                },
-
-                {
-                    cctv_number : "2",
-                    cctv_location : "중앙대로",
-                    cctv_state : "Apply",
-                    cctv_url : "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"
-                },
-
-                {
-                    cctv_number : "3",
-                    cctv_location : "시청네거리",
-                    cctv_state : "Apply",
-                    cctv_url : "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"
-                },
-
-                {
-                    cctv_number : "4",
-                    cctv_location : "MBC네거리",
-                    cctv_state : "Apply",
-                    cctv_url : "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"
-                },
-
-                {
-                    cctv_number : "5",
-                    cctv_location : "대구공고네거리",
-                    cctv_state : "Apply",
-                    cctv_url : "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"
-                },
-            ],
-        };
+    constructor(props){ // class 내에서 객체 생성 하고 초기화 ( 생성자 )
+        super(props); // 상위 클래스의 생성자를 호출하고 반환
+        //생성자 메소드로 컴포넌트가 생성될 때 단 한번만 실행된다.
+        //이 메소드에서만 state를 설정 가능
+            this.state={
+                datas: [
+                    {
+                        //Sample datas
+                        "cctv_number" : "number",
+                        "cctv_location" : "location",
+                        "cctv_state" : "apply",
+                        "cctv_url" : "null"
+                    }
+                ],
+            };
     }
 
-    // componentDidMount() {
-        
-    //     fetch('null')
-    //         .then(data => data.json())
-    //         .then(data => this.setState({datas: data}, () => console.log(data)))
-    // }
+    // Request
+    // GET http://localhost:3000/datalist
+    // Origin: http://localhost:3000
+
+    componentDidMount() {
+        fetch('http://localhost:3000/datalist' ,  {
+            mode: 'no-cors',
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+        })
+        .then((res) => res.json())
+        .then((res) => this.setState({ datas: res }, 
+            () => console.log(res)))
+    }
 
     render(){
-
-        return(
+        return( // Screen
             <View style={style.root}>
                 <Text style={style.titleText}>Video_List_View</Text>
 
                 <FlatList
-                    data={this.state.datas}
+                    data={this.state.datas} // datas
                     renderItem={this.renderItem}
                     keyExtractor={ item=> item.cctv_number }>
-                
                 </FlatList>
 
             </View>
@@ -109,9 +95,9 @@ export default class videoList extends Component{
     goScreenVideo(){
         this.props.navigation.navigate('VideoPage');
     }
-}
+    }
 
-const style= StyleSheet.create({
+    const style= StyleSheet.create({
     root:{flex:1, padding:16,},
 
     titleText:{

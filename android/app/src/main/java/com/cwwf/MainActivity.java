@@ -36,7 +36,7 @@ public class MainActivity extends ReactActivity {
     // Below line is handled by '@expo/configure-splash-screen' command and it's discouraged to modify it manually
     SplashScreen.show(this, SplashScreenImageResizeMode.CONTAIN, ReactRootView.class, false);
 
-    System.out.println("devie token : "+  FirebaseMessaging.getInstance().getToken());
+//    System.out.println("devie token : "+  FirebaseMessaging.getInstance().getToken());
 
 
 

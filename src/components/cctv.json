@@ -1,21 +1,6 @@
 {
-	"cctv" : [
-		{
-			"name" : "cctv1",
-			"message" : "address"
-		},
-		{
-			"name" : "cctv1",
-			"message" : "address"
-		},
-		{
-			"name" : "cctv1",
-			"message" : "address"
-		},
-		{
-			"name" : "cctv1",
-			"message" : "address"
-		}
-
-	]
+	"cctv_number":"e3",
+	"cctv_location":"호놀놀ㄴㄴㄴ로",
+	"cctv_state":"warning",
+	"cctv_url":"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
 }
