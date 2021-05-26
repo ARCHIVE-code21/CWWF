@@ -12,6 +12,7 @@
     "@react-native-firebase/database": "^11.5.0",
     "@react-native-firebase/messaging": "^11.5.0",
     "@react-navigation/native": "^5.9.4",
+    "cors": "^2.8.5",
     "expo": "~41.0.1",
     "expo-av": "^9.1.2",
     "expo-splash-screen": "~0.10.2",

@@ -42,18 +42,24 @@ export default class videoList extends Component{
     componentDidMount() {
         this.setState({ isLoading: true});
 
-        fetch('http://localhost:3000/datalist' ,  {
-            mode: 'no-cors',
+        let url = "http://127.0.0.1:3000/datalist"
+
+        fetch( url ,  {
+            
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }
+                'Accept': 'application/json',
+            },
+            // body: JSON.stringify({offset: 1, limlt: 2})
         })
-        .then(console.log("componentDidMount run..."))
-        .then((res) => res.json())
-        .then((res) => this.setState({ datas: res, isLoading: false }, 
-            () => console.log(res)))
+        .then(console.log("get datas run..."))
+        .then(res => {
+            console.log(res);
+            return res.json()})
+        .then(res => this.setState({ datas: res, isLoading: false }, 
+            () => console.log(res, 'data Success')))
+        .catch(err => { console.log('DATA GET ERROR',{ err })})
     }
 
     render(){
@@ -61,7 +67,7 @@ export default class videoList extends Component{
         
         if (isLoading) {
             return <View>
-                <Text> LOADING ...</Text>
+                <Text style={style.Loading}> CCTV_VIDEO_LOADING ...</Text>
             </View>
         }
         return( // Screen
@@ -144,4 +150,11 @@ export default class videoList extends Component{
         width: 100,
         height: 50,
     },
+
+    Loading: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        paddingTop: 300
+    }
 });
