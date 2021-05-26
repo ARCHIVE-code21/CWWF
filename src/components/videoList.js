@@ -30,6 +30,8 @@ export default class videoList extends Component{
                         "cctv_url" : "null"
                     }
                 ],
+                
+                isLoading: false,
             };
     }
 
@@ -38,20 +40,30 @@ export default class videoList extends Component{
     // Origin: http://localhost:3000
 
     componentDidMount() {
+        this.setState({ isLoading: true});
+
         fetch('http://localhost:3000/datalist' ,  {
             mode: 'no-cors',
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
-            },
+            }
         })
+        .then(console.log("componentDidMount run..."))
         .then((res) => res.json())
-        .then((res) => this.setState({ datas: res }, 
+        .then((res) => this.setState({ datas: res, isLoading: false }, 
             () => console.log(res)))
     }
 
     render(){
+        const { datas, isLoading } = this.state;
+        
+        if (isLoading) {
+            return <View>
+                <Text> LOADING ...</Text>
+            </View>
+        }
         return( // Screen
             <View style={style.root}>
                 <Text style={style.titleText}>Video_List_View</Text>
