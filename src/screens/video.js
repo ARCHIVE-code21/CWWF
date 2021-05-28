@@ -1,51 +1,51 @@
-import React, { Component } from 'react';
+import React, {Component, useState} from 'react';
 import { StyleSheet, Platform } from 'react-native';
 
 import { View, Text, Button } from "react-native";
 
 import { Video, AVPlaybackStatus } from 'expo-av';
 
-    const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    font_L:{
-        fontSize: 50,
-        fontWeight:'bold',
-        shadowColor: 'rgba(0,0,0,0.2)'
-    },
-    font_M:{
-        fontSize:30,
-    },
-    button: {
-        width: 70,
-        height: 30,
-    },
+const styles = StyleSheet.create({
+container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+},
+font_L:{
+    fontSize: 50,
+    fontWeight:'bold',
+    shadowColor: 'rgba(0,0,0,0.2)'
+},
+font_M:{
+    fontSize:30,
+},
+button: {
+    width: 70,
+    height: 30,
+},
 
 
-    // VideoView resizeMode
-    videoView: {
-        justifyContent: 'center',
-        flex: 1,
-        alignItems:'center',
-        flexDirection: 'column',
-        },
+// VideoView resizeMode
+videoView: {
+    justifyContent: 'center',
+    flex: 1,
+    alignItems:'center',
+    flexDirection: 'column',
+    },
 
-        videoStyle: {
-            alignSelf:'center',
-            width: 300,
-            height: 200,
-        },
+    videoStyle: {
+        alignSelf:'center',
+        width: 300,
+        height: 200,
+    },
 });
 
 // video Sample file url
 // http://techslides.com/demos/sample-videos/small.mp4
 
-const url = 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4'
+const url = cctv_url;
 
-export default class VideoScreen extends Component {
+class VideoScreen extends Component {
 
     render() {
         return (
@@ -63,4 +63,8 @@ export default class VideoScreen extends Component {
     }
 }
 
+VideoScreen.defaultProps = {
+    cctv_url : "cctv_url"
+}
 
+export default VideoScreen;

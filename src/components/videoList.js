@@ -1,6 +1,8 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import { View, Text, StyleSheet, 
-    FlatList, TouchableOpacity} from 'react-native';
+    FlatList, TouchableOpacity, SafeAreaView, ScrollView, RefreshControl} from 'react-native';
+import { withRepeat } from 'react-native-reanimated';
+import PropTypes from 'prop-types';
 
     // export default function App() {
     //     const [data, setData] = useState([]);
@@ -32,6 +34,7 @@ export default class videoList extends Component{
                 ],
                 
                 isLoading: false,
+                isFetching: false
             };
     }
 
@@ -42,25 +45,42 @@ export default class videoList extends Component{
     componentDidMount() {
         this.setState({ isLoading: true});
 
-        let url = "http://127.0.0.1:3000/datalist"
+        let url = "http://172.30.1.29:3000/datalist"
+        var sortNum = "cctv_number"
 
-        fetch( url ,  {
-            
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-            },
-            // body: JSON.stringify({offset: 1, limlt: 2})
+        this.state.datas.sort(function(a, b) {
+            return a[sortNum] - b[sortNum];
         })
-        .then(console.log("get datas run..."))
-        .then(res => {
-            console.log(res);
-            return res.json()})
-        .then(res => this.setState({ datas: res, isLoading: false }, 
-            () => console.log(res, 'data Success')))
-        .catch(err => { console.log('DATA GET ERROR',{ err })})
-    }
+
+            fetch( url ,  {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                },
+                // body: JSON.stringify({offset: 1, limlt: 2})
+            })
+            
+            .then(console.log("get datas run..."))
+            .then(res => {
+                console.log(res);
+                return res.json()})
+            .then(res => this.setState({ datas: res, isLoading: false }, 
+                () => console.log(res, 'data Success')))
+            .catch(err => { console.log('DATA GET ERROR',{ err })})
+        }
+
+        onRefresh() {
+            console.log('refreshing')
+            this.setState({ isFetching: true }, function(){
+                this.fetchData()
+            });
+        }
+
+        fetchData() {
+            alert('refreshing data');
+        }
+        
 
     render(){
         const { datas, isLoading } = this.state;
@@ -70,21 +90,26 @@ export default class videoList extends Component{
                 <Text style={style.Loading}> CCTV_VIDEO_LOADING ...</Text>
             </View>
         }
+
         return( // Screen
-            <View style={style.root}>
-                <Text style={style.titleText}>Video_List_View</Text>
+            <ScrollView>
+                <View style={style.root}>
+                    <Text style={style.titleText}>Video_List_View</Text>
 
-                <FlatList
-                    data={this.state.datas} // datas
-                    renderItem={this.renderItem}
-                    keyExtractor={ item=> item.cctv_number }>
-                </FlatList>
+                    <FlatList
+                        data={this.state.datas} // datas
+                        renderItem={this.renderItem}
+                        keyExtractor={ item=> item.cctv_number }
+                        onRefresh={() => this.onRefresh}
+                        refreshing={this.state.isFetching}
+                        />
 
-            </View>
+                </View>
+            </ScrollView>
         );
     }
 
-    renderItem=({item})=>{
+    renderItem=({item})=>{ //item
         return(
             <TouchableOpacity 
                 style={style.contentView} 
@@ -110,51 +135,64 @@ export default class videoList extends Component{
         );
     }
 
-    goScreenVideo(){
-        this.props.navigation.navigate('VideoPage');
+        goScreenVideo(){
+            this.props.navigation.navigate('VideoPage');
+        }
     }
-    }
 
-    const style= StyleSheet.create({
-    root:{flex:1, padding:16,},
+    videoList.propTypes = {
+        cctv_url: PropTypes.string.isRequired
+    };
 
-    titleText:{
-        fontSize:24,
-        fontWeight:'bold',
-        textAlign:'center',
-        flex: 0,
-        paddingTop:30,
-        paddingBottom:16,
+const style= StyleSheet.create({
+root:{flex:1, padding:16,},
+
+titleText:{
+    fontSize:24,
+    fontWeight:'bold',
+    textAlign:'center',
+    flex: 0,
+    paddingTop:30,
+    paddingBottom:16,
+},
+
+contentView:{
+    flexDirection:'row',
+    alignItems: 'center',
+    borderWidth:1,
+    borderRadius:0,
+    padding:8,
+    marginBottom:12,
+},
+
+cctvName:{
+    fontSize:24,
+    fontWeight:'bold',
+},
+textAddress:{
+    fontSize:16,
+},
+
+videoStyle: {
+    resizeMode:'cover',
+    flex:2,
+    width: 100,
+    height: 50,
+},
+
+Loading: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    paddingTop: 300
+},
+container: {
+    flex: 1,
     },
-
-    contentView:{
-        flexDirection:'row',
-        alignItems: 'center',
-        borderWidth:1,
-        borderRadius:0,
-        padding:8,
-        marginBottom:12,
+    scrollView: {
+    flex: 1,
+    backgroundColor: 'pink',
+    alignItems: 'center',
+    justifyContent: 'center',
     },
-
-    cctvName:{
-        fontSize:24,
-        fontWeight:'bold',
-    },
-    textAddress:{
-        fontSize:16,
-    },
-
-    videoStyle: {
-        resizeMode:'cover',
-        flex:2,
-        width: 100,
-        height: 50,
-    },
-
-    Loading: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        paddingTop: 300
-    }
 });
