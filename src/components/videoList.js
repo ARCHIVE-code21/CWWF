@@ -23,13 +23,12 @@ export default class videoList extends Component{
         //생성자 메소드로 컴포넌트가 생성될 때 단 한번만 실행된다.
         //이 메소드에서만 state를 설정 가능
             this.state={
-                datas: [
+                datas: [//Sample datas
                     {
-                        //Sample datas
-                        "cctv_number" : "number",
-                        "cctv_location" : "location",
-                        "cctv_state" : "apply",
-                        "cctv_url" : "null"
+                        // "cctv_number" : "number",
+                        // "cctv_location" : "location",
+                        // "cctv_state" : "apply",
+                        // "cctv_url" : "null"
                     }
                 ],
                 
@@ -45,7 +44,7 @@ export default class videoList extends Component{
     componentDidMount() {
         this.setState({ isLoading: true});
 
-        let url = "http://172.30.1.29:3000/datalist"
+        let url = "http://localhost:3000/datalist"
         var sortNum = "cctv_number"
 
         this.state.datas.sort(function(a, b) {
@@ -53,7 +52,7 @@ export default class videoList extends Component{
         })
 
             fetch( url ,  {
-                method: 'GET',
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
@@ -110,11 +109,14 @@ export default class videoList extends Component{
     }
 
     renderItem=({item})=>{ //item
+
+        console.log(item);
+
         return(
             <TouchableOpacity 
                 style={style.contentView} 
                 // onPress={()=>{alert(item.cctv_number);}}
-                onPress={()=> this.goScreenVideo()}
+                onPress={()=> this.goScreenVideo(item)}
                 >
 
                 <View style={{flexDirection:'column'}}>
@@ -135,8 +137,8 @@ export default class videoList extends Component{
         );
     }
 
-        goScreenVideo(){
-            this.props.navigation.navigate('VideoPage');
+        goScreenVideo(item){
+            this.props.navigation.navigate('VideoPage', {item: item});
         }
     }
 

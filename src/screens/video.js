@@ -3,7 +3,7 @@ import { StyleSheet, Platform } from 'react-native';
 
 import { View, Text, Button } from "react-native";
 
-import { Video, AVPlaybackStatus } from 'expo-av';
+import { Video } from 'expo-av';
 
 const styles = StyleSheet.create({
 container: {
@@ -43,9 +43,15 @@ videoView: {
 // video Sample file url
 // http://techslides.com/demos/sample-videos/small.mp4
 
-const url = cctv_url;
-
 class VideoScreen extends Component {
+
+    constructor(props){
+        super(props);
+    
+        this.state = {
+            item: this.props.navigation.state.params.item
+        }
+    }
 
     render() {
         return (
@@ -54,7 +60,7 @@ class VideoScreen extends Component {
                     <Video
                         useNativeControls
                         isLooping
-                        source={{uri: url,}}
+                        source={{uri: this.state.item.cctv_url}}
                         style={styles.videoStyle}
                         resizeMode="contain"
                     />
