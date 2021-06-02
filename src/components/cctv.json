@@ -1,6 +1,52 @@
-{
-	"cctv_number":"e3",
-	"cctv_location":"호놀놀ㄴㄴㄴ로",
-	"cctv_state":"warning",
-	"cctv_url":"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-}
+[
+	{
+		"cctv_number":"1",
+		"cctv_location":"location",
+		"cctv_apply":"apply",
+		"cctv_url":""
+	},
+
+	{
+		"cctv_number":"2",
+		"cctv_location":"location",
+		"cctv_apply":"apply",
+		"cctv_url":""
+	},
+
+	{
+		"cctv_number":"3",
+		"cctv_location":"location",
+		"cctv_apply":"apply",
+		"cctv_url":""
+	},
+
+	{
+		"cctv_number":"4",
+		"cctv_location":"location",
+		"cctv_apply":"apply",
+		"cctv_url":""
+	},
+
+	{
+		"cctv_number":"5",
+		"cctv_location":"location",
+		"cctv_apply":"apply",
+		"cctv_url":""
+	},
+	
+	{
+		"cctv_number":"6",
+		"cctv_location":"location",
+		"cctv_apply":"apply",
+		"cctv_url":""
+	},
+
+	{
+		"cctv_number":"7",
+		"cctv_location":"location",
+		"cctv_apply":"apply",
+		"cctv_url":""
+	}
+
+]
+

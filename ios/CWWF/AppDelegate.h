@@ -2,6 +2,7 @@
 #import <EXUpdates/EXUpdatesAppController.h>
 #import <React/RCTBridgeDelegate.h>
 #import <UIKit/UIKit.h>
+@import Firebase;
 
 #import <UMCore/UMAppDelegateWrapper.h>
 

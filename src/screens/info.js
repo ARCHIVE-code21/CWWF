@@ -30,7 +30,7 @@ class InfoScreen extends Component {
             <>
                 <View style={styles.container}>
                     <Text style={styles.font_M}>Crosswalk_Watcher{"\n"}</Text>
-                    <Text>{"solarpark7346@gmail.com \n"}</Text>
+                    <Text>{"\n 김형준 \n 이상규 \n 박보성 \n\n"}</Text>
 
                     <Text style={{color: 'blue', fontWeight: 'bold'}}
                         onPress={() => Linking.openURL('https://github.com/junnikym/CrosswalkWatcher')}

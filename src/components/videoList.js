@@ -1,7 +1,9 @@
-import React, {Component, useState} from 'react';
+import React, {Component} from 'react';
 import { View, Text, StyleSheet, 
-    FlatList, TouchableOpacity, SafeAreaView, ScrollView, RefreshControl} from 'react-native';
-import { withRepeat } from 'react-native-reanimated';
+    FlatList, TouchableOpacity, ScrollView} from 'react-native';
+
+import cctvData from './cctv.json'
+
 import PropTypes from 'prop-types';
 
     // export default function App() {
@@ -23,7 +25,7 @@ export default class videoList extends Component{
         //생성자 메소드로 컴포넌트가 생성될 때 단 한번만 실행된다.
         //이 메소드에서만 state를 설정 가능
             this.state={
-                datas: [//Sample datas
+                fetch_datas: [//Sample datas
                     {
                         // "cctv_number" : "number",
                         // "cctv_location" : "location",
@@ -31,6 +33,8 @@ export default class videoList extends Component{
                         // "cctv_url" : "null"
                     }
                 ],
+
+                cctv_datas: cctvData,
                 
                 isLoading: false,
                 isFetching: false
@@ -44,10 +48,10 @@ export default class videoList extends Component{
     componentDidMount() {
         this.setState({ isLoading: true});
 
-        let url = "http://localhost:3000/datalist"
+        let url = "http://172.16.138.69:3000/datalist"
         var sortNum = "cctv_number"
 
-        this.state.datas.sort(function(a, b) {
+        this.state.fetch_datas.sort(function(a, b) {
             return a[sortNum] - b[sortNum];
         })
 
@@ -60,11 +64,11 @@ export default class videoList extends Component{
                 // body: JSON.stringify({offset: 1, limlt: 2})
             })
             
-            .then(console.log("get datas run..."))
+            .then(console.log("get fetch_datas run..."))
             .then(res => {
                 console.log(res);
                 return res.json()})
-            .then(res => this.setState({ datas: res, isLoading: false }, 
+            .then(res => this.setState({ fetch_datas: res, isLoading: false }, 
                 () => console.log(res, 'data Success')))
             .catch(err => { console.log('DATA GET ERROR',{ err })})
         }
@@ -82,7 +86,7 @@ export default class videoList extends Component{
         
 
     render(){
-        const { datas, isLoading } = this.state;
+        const { fetch_datas, isLoading } = this.state;
         
         if (isLoading) {
             return <View>
@@ -94,9 +98,8 @@ export default class videoList extends Component{
             <ScrollView>
                 <View style={style.root}>
                     <Text style={style.titleText}>Video_List_View</Text>
-
                     <FlatList
-                        data={this.state.datas} // datas
+                        data={this.state.fetch_datas} // fetch_datas
                         renderItem={this.renderItem}
                         keyExtractor={ item=> item.cctv_number }
                         onRefresh={() => this.onRefresh}
@@ -104,6 +107,15 @@ export default class videoList extends Component{
                         />
 
                 </View>
+
+                <View style={style.root}>
+                    <FlatList
+                        data={this.state.cctv_datas}
+                        renderItem={this.renderItem}
+                        keyExtractor={ item=> item.cctv_number }
+                        />    
+                </View>
+
             </ScrollView>
         );
     }
@@ -122,7 +134,8 @@ export default class videoList extends Component{
                 <View style={{flexDirection:'column'}}>
                     <Text style={style.cctvName}>{item.cctv_number}</Text>
                     <Text style={style.textAddress}>{item.cctv_location}</Text>
-                    <Text style={style.textAddress}>{item.cctv_state}</Text>
+                    <Text style={style.textWarring}>{item.cctv_state}</Text>
+                    <Text style={style.textApply}>{item.cctv_apply}</Text>
                 </View>
 
                 {/* <Video
@@ -173,6 +186,14 @@ cctvName:{
 },
 textAddress:{
     fontSize:16,
+},
+
+textApply:{
+    color: 'green'
+},  
+
+textWarring:{
+    color: 'red'
 },
 
 videoStyle: {
